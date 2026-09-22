@@ -32,3 +32,54 @@ target1 = 9
 
 #暴力解法
 def solution1(numbers1,target1):
+    for index,k in enumerate(numbers1):
+        need = target1 - k
+        for i in range(index+1,len(numbers1)):
+            if numbers1[i] == need:
+                return [index+1,i+1]
+    return []
+
+#哈希解法
+def solution2(numbers1,target1):
+    dit={}
+    for index,k in enumerate(numbers1):
+        need = target1 - k
+        if need not in dit:
+            dit[k]=index
+        else:
+            return [dit[need]+1,index+1]
+    return []
+
+#双指针（首尾）写法
+def solution3(numbers1,target1):
+    left=0
+    right=len(numbers1)-1
+    while left<right:
+        if numbers1[left]+numbers1[right]>target1:  # right-=1 if numbers1[left]+numbers1[right]>target1
+            right-=1
+        elif numbers1[left]+numbers1[right]<target1:  # left+=1  if numbers1[left]+numbers1[right]<target1:
+            left+=1
+        else:
+            return [left+1,right+1]
+    return []
+
+#双指针（快慢针）写法
+def solution4(numbers1,target1):
+    left=0
+    right=1
+    while left<right:
+        if numbers1[left]+numbers1[right]<target1:
+            right+=1
+        elif numbers1[left]+numbers1[right]<target1:
+            left+=1
+        else:
+            return [left+1,right+1]
+    return []
+
+
+
+if __name__ == '__main__':
+    print(solution1(numbers1,target1))
+    print(solution2(numbers1,target1))
+    print(solution3(numbers1,target1))
+    print(solution4(numbers1,target1))
