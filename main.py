@@ -1,0 +1,2 @@
+a=[]
+con = a.index()
