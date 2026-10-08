@@ -21,8 +21,27 @@
 
 """
 nums=[7,8,9,11,12]
+#暴力解法
+def solution(nums:list[int])->int:
+    cur = 1
+    while True:
+        if cur in nums:
+            cur += 1
+        else:
+            return cur
+
 #期望归位解法
-def solution(nums:list[int])->list[int]:
-    cur = nums[0]
-    while cur != nums[cur-1]:
-        cur,nums[cur-1] = nums[cur-1],cur
+def solution2(nums:list[int])->int:
+    n = len(nums)
+    for i in range(n):
+        if 0<nums[i]<=n:
+            nums[i-1]=i
+
+    for index,i in enumerate(nums):
+        if index+1!=i:
+            return index+1
+
+
+
+print(solution(nums))
+print(solution2(nums))
