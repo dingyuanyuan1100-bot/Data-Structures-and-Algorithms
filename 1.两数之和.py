@@ -40,26 +40,30 @@ nums3 = [3,3]
 target3 = 6
 
 #1.暴力解法
-def solution1(nums1,target1):
-    for index, num in enumerate(nums1):
-        con = target1-num
-        for j in range(index+1,len(nums1)):
-            if con ==nums1[j]:
-                return [index,j]
+def solution(nums, target):
+    for index,num in enumerate(nums):
+        cum_ = target - num
+        for i in range(index+1,len(nums)):
+            if nums[i] == cum_:
+                return [index,i]
+
     return []
 
+
 #2.哈希表解法
-def solution2(nums1,target1):
-    dit={}
-    for index,num in enumerate(nums1):
-        need = target1-num
-        if need not in dit:
-            dit[num]=index
-        else:
-            return [dit[need],index]
+def solution2(nums, target):
+    dit = {}
+    for index,num in enumerate(nums):
+        if num in dit:
+            return [dit[num],index]
+        num = target - num
+        dit[num] = index
     return []
 
 
 
 if __name__ == '__main__':
+    print(solution(nums1,target1))
     print(solution2(nums1, target1))
+
+

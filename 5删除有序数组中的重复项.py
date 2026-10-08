@@ -28,10 +28,12 @@ nums = [0,0,1,1,1,2,2,3,3,4 ]
 #双指针写法
 def solution1(nums):
     left = 0
-    for right in nums:
-        if right != nums[left]:
+    con = 0
+    for right,value in enumerate(nums):
+        if value != nums[left]:
             left += 1
-            nums[left] = right
+            nums[left] = value
+            con +=1
     return left+1
 
 if __name__ == '__main__':

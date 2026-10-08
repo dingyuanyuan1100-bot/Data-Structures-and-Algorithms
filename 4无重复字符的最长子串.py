@@ -24,40 +24,45 @@
 s = "abba"
 #暴力解法
 def solution1(s):
-    a=[]
-    max_=0
-    for i in s:
-        while i in a:
-            del a[0]
-        if i not in a:
-            a.append(i)
-            max_ = max(max_,len(a))
-    return max_
+    max_len = 0
+    n = len(s)
+    # i：子串起点
+    for i in range(n):
+        seen = set()  # 保存当前子串已经出现过的字符
+        # j：子串终点，从i向后扩展
+        for j in range(i, n):
+            if s[j] in seen:
+                break  # 出现重复，停止向后扩展
+            seen.add(s[j])
+            max_len = max(max_len, j - i + 1)
+    return max_len
+
 
 #滑动窗口（快慢指针）写法
 def solution2(s):
-    a=set()
     left = 0
     max_len = 0
+    seen = set()
     for right in range(len(s)):
-        while s[right] in a:
-            a.remove(s[left])
-            left += 1
-        a.add(s[right])
-        max_len = max(max_len, len(a))
+        while s[right] in seen:
+            seen.remove(s[left])
+            left+=1
+        seen.add(s[right])
+        max_len = max(max_len, right - left + 1)
     return max_len
 
 #滑动窗口（跳跃 left）写法
 def solution3(s):
-    char_index = dict()
-    max_len = 0
+    dic = dict()
     left = 0
-    for right, c in enumerate(s):
-        if c in char_index and char_index[c] >= left:
-            left = char_index[c] + 1
-        char_index[c] = right
+    max_len = 0
+    for right,value in enumerate(s):
+        if value in dic and left < dic[value]:      #注意条件
+            left = dic[value]+1
+        dic[value] = right
         max_len = max(max_len, right - left + 1)
     return max_len
+
 
 
 if __name__ == '__main__':

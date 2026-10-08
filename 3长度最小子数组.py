@@ -25,32 +25,31 @@ numsr-1,numsr],并返回其长度。如果不存在符合条件的子数组,返�
 target = 7
 nums = [2,3,1,2,4,3]
 
-#暴力哈希解法
-def solution1(target,nums):
-    dit = {}
+#暴力解法
+def solution1(target,nums)->int:
+    lst = []
     for index,num in enumerate(nums):
         for i in range(index+1,len(nums)):
-            if num+nums[i]>=target:
-                dit[i-index]=[num,nums[i]]
-    if  dit == {}:
-        return 0
-    min_=min(dit.keys())+1
-    return min_
+            if num+nums[i] >= target:
+                lst.append(i-index+1)
+
+
+    return 0 if len(lst)==0 else min(lst)
 
 #滑动窗口(快慢指针)
-def solution2(target, nums):
-    slow = 0
-    fast = 0
-    total = 0
-    res = float('inf')
-    while fast < len(nums):
-        total+=nums[fast]
-        while total>=target:
-            res=min(res,fast-slow+1)
-            total-=nums[slow]
-            slow+=1
-        fast+=1
-    return 0 if res == float('inf') else res
+def solution2(target,nums)->int:
+    left = 0
+    totle = 0
+    min_ = float('inf')
+    for right in range(len(nums)):
+        totle += nums[right]
+        while totle >= target:
+            min_ = min(min_,right-left+1)
+            totle -= nums[left]
+            left += 1
+    return 0 if min_ == float('inf') else min_
+
+
 
 
 
